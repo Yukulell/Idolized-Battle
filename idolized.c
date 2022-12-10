@@ -35,7 +35,7 @@ int main () {
         else if (pvBoss >= 2147483647) {
             puts("ca fait un peu beaucoup nan?");
         }
-    } while (pvBoss <= 0 || pvBoss >= 2147483647);
+    } while (pvBoss <= 101 || pvBoss >= 2147483647);
     system("cls");
     printf("le nombre de pv du boss est de %d PV... \n", pvBoss);
     puts("Amuse toi bien...");
