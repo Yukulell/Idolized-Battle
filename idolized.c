@@ -259,16 +259,18 @@ int main () {
                 break;
 
             case 12:
-                system("cls");
-                printf(" quelle rune voulez-vous utilisez?\n");
-                printf("1: La rune de Sowilo --> %d       2: La rune de Algiz --> %d\n", sowilo, algiz);
-                printf("3: La rune de Jera   --> %d       4: La rune de Berkana --> %d\n \n", jera, berkana);
-                actionJoueurRune = 0;
-                scanf("%d", &actionJoueurRune);
-                if (sowilo >= 1 && actionJoueurRune == 1)
-                {
+                do {
+                    system("cls");
+                    printf(" quelle rune voulez-vous utilisez?\n");
+                    printf("1: La rune de Sowilo --> %d       2: La rune de Algiz --> %d\n", sowilo, algiz);
+                    printf("3: La rune de Jera   --> %d       4: La rune de Berkana --> %d\n \n", jera, berkana);
+                    actionJoueurRune = 0;
+                    scanf("%d", &actionJoueurRune);
+                } while (actionJoueurRune < 1 || actionJoueurRune > 4);
+                if (sowilo >= 1 && actionJoueurRune == 1){
                     printf("Vou utilisez la rune de Sowilo...\nElle inflige %d degat", forceJoueur * Domination * 25);
                 }
+                
 
 
             default:
