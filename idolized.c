@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-int buy() {
 
-}
 int main () {
     int armure[5] = {0,0,0,0};
     int pvJoueur = 1000;
@@ -26,35 +24,38 @@ int main () {
     int pvBoss = 500;
     int actionJoueurRune = 0;
     int sowilo = 0;
+    int runeTurnSowilo = 0;
     int runeTurn = 0;
     int jera = 0;
     int berkana = 0;
     int algiz = 0;
     void delay(int);
-    puts("Bienvenue a toi dans Idolized Battle - Entrusting This World to Idols ~ Idolatrize World\nChoisissez le nombre de PV de Byakuren entre 50 000 et 2 000 000 000");
+    puts("Welcome in Idolized Battle - Entrusting This World to Idols ~ Idolatrize World\nSelect the number of HP of Byakuren beetwen 50 000 and 2 000 000 000");
     do {
         fflush(stdin);
         scanf("%d", &pvBoss);
         pvBossMax = pvBoss;
         if (pvBoss <= 49999) {
-            puts("Byakuren doit avoir un minimum de vie, sinon cela ne sert a rien de jouer");
+            puts("Byakuren need to have a minimum of 50 000 HP");
         }
         else if (pvBoss >= 2000000001) {
-            puts("ca fait un peu beaucoup nan?");
+            puts("Calm down! you outpass the limit of HP");
         }
     } while (pvBoss <= 49999 || pvBoss >= 2000000001);
     system("cls");
-    printf("le nombre de pv de Byakuren est de %d PV... \n", pvBoss);
-    puts("Amuse toi bien...");
+    printf("The number of HP is %d\n", pvBoss);
+    puts("Enjoy!");
     while (pvBoss > 0) {
-        printf("Appuyez sur le numero correspondant a l'action puis sur entree\nListe des actions:\n \n1: Attaque                                                       2: Greedier as you can (- %d pieces) \n3: Heal (-25 mana)                                               4: Evolution (-%d pieces, +100 hp max, +25 mana max \n",
+        printf("Press the number of the action and enter:\n \n1: Attack                                                        2: Greedier as you can (- %d pieces) \n3: Heal (-25 mana)                                               4: Evolution (-%d pieces, +100 hp max, +25 mana max \n",
               50 + coin / 4 ,50 + evolution * 5);
         printf("5: Domination (-%d mana -%d piece +25 force)                     6: Hush (-1000 mana -2500 pieces)\n7: Idolatrize spirit power charge (-%d mana)                    8: Idolatrize spirit power release\n",
                45 + Domination * 5, 45 + Domination * 5, 100 + 50 * idolatrizeCharge);
-        puts("9: Stats                                                         10: Shop\n11: Catalogue                                                    12: Menu des Runes");
+        puts("9: Stats                                                         10: Shop(comming soon)\n11: Catalog(coming soon)                                                    12: Rune's menu (coming soon)");
         fflush(stdin);
         scanf("%d", &actionJoueur);
         switch (actionJoueur) {
+            case 0:
+                break;
             case 1:
                 system("cls");
                 if (manaJoueur < 100 + manaMaxBonus) {
@@ -63,37 +64,37 @@ int main () {
                 } else {
                     manaJoueur = manaMax + manaMaxBonus;
                 }
-                printf("Vous attaquez Byakuren vous lui enlevez %d PV! et gagnez %d piece \n", forceJoueur * Domination,
+                printf("Byakuren lose %d HP! You earn %d coin \n", forceJoueur * Domination,
                        coinBonus + 5);
-                printf("Vous vous faites attaquez - %d Pv \n \n", 50 + forceBoss);
+                printf("You got attacked, you lose %d HP \n \n", 50 + forceBoss);
                 coin += 5 + coinBonus;
                 pvJoueur -= 50 + forceBoss;
                 pvBoss -= forceJoueur * Domination;
                 if (manaJoueur >= 100 + manaMaxBonus) {
                     manaJoueur = 100 + manaMaxBonus;
                 }
-                printf("Joueur --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
-                printf("Mana --> %d / %d              pieces --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
-                runeTurn++;
+                printf("Player --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
+                printf("Mana --> %d / %d              Coin --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
+                runeTurnSowilo++;
                 turn++;
                 break;
             case 2:
                 if (coin >= 50 + coin / 4) {
                     system("cls");
-                    printf("Vous utilisez la votre argent... vous lui enlevez %d PV! \n",
+                    printf("You spend your money, Byakuren lose %d HP! \n",
                            forceJoueur * Domination * coin);
-                    printf("Vous vous faites attaquer -%d PV \n \n", 50 + forceBoss);
+                    printf("You got attacked, you lose %d HP \n \n", 50 + forceBoss);
                     pvJoueur -= 50 + forceBoss;
                     coin -= 50 + coin / 4;
                     pvBoss -= forceJoueur * Domination * coin;
-                    printf("Joueur --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
-                    printf("Mana --> %d / %d              pieces --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
+                    printf("Player --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
+                    printf("Mana --> %d / %d              Coin --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
                     turn++;
                 } else {
                     system("cls");
-                    puts("vous n\'avez pas assez de piece \n");
-                    printf("Joueur --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
-                    printf("Mana --> %d / %d              pieces --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
+                    puts("You don't have enough money \n");
+                    printf("Player --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
+                    printf("Mana --> %d / %d              Coin --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
                 }
                 break;
             case 3:
@@ -105,70 +106,70 @@ int main () {
                         if (pvJoueur >= 1000 + pvMaxBonus) {
                             pvJoueur = 1000 + pvMaxBonus;
                         }
-                        printf("Vous gagnez %d PV! \n \n", 200 + pvMaxBonus * 100 / 400);
-                        printf("Joueur --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
-                        printf("Mana --> %d / %d              pieces --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
+                        printf("You recover %d HP! \n \n", 200 + pvMaxBonus * 100 / 400);
+                        printf("Player --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
+                        printf("Mana --> %d / %d              Coin --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
                         turn++;
                     } else {
                         system("cls");
-                        puts("plus assez de mana \n");
-                        printf("Joueur --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
-                        printf("Mana --> %d / %d              pieces --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
+                        puts("You don't have enough mana \n");
+                        printf("Player --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
+                        printf("Mana --> %d / %d              Coin --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
                     }
                 } else {
                     if (manaJoueur >= 25) {
                         system("cls");
                         pvJoueur = pvMax + pvMaxBonus;
                         manaJoueur -= 25;
-                        printf("PV au MAX!! %d / %d\n \n", pvJoueur, 1000 + pvMaxBonus);
-                        printf("Joueur --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
-                        printf("Mana --> %d / %d              pieces --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
+                        printf("Max HP! %d / %d\n \n", pvJoueur, 1000 + pvMaxBonus);
+                        printf("Player --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
+                        printf("Mana --> %d / %d              Coin --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
                         turn++;
                     } else {
-                        puts("plus assez de mana \n");
-                        printf("Joueur --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
-                        printf("Mana --> %d / %d              pieces --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
+                        puts("You don't have enough mana \n");
+                        printf("Player --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
+                        printf("Mana --> %d / %d              Coin --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
                     }
                 }
                 break;
             case 4:
                 if (coin >= 50 + evolution * 5) {
                     system("cls");
-                    puts("Vous vous renforcez, +25 mana et 150 pv");
-                    printf("Vous vous faites attaquez -%d Pv \n \n", 50 + forceBoss);
+                    puts("You get stronger, +25 mana max and 150 hp max");
+                    printf("You got attacked, you lose %d HP \n \n", 50 + forceBoss);
                     pvJoueur -= 50 + forceBoss;
                     coin -= 50 + evolution * 5;
                     evolution++;
                     pvMaxBonus += 150;
                     manaMaxBonus += 25;
-                    printf("Joueur --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
-                    printf("Mana --> %d / %d              pieces --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
+                    printf("Player --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
+                    printf("Mana --> %d / %d              Coin --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
                     turn++;
                 } else {
                     system("cls");
-                    puts("plus assez de pieces \n");
-                    printf("Joueur --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
-                    printf("Mana --> %d / %d              pieces --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
+                    puts("You don't have enough coin \n");
+                    printf("Player --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
+                    printf("Mana --> %d / %d              Coin --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
                 }
                 break;
             case 5:
                 if (manaJoueur >= 45 + Domination * 5 && coin >= 45 + Domination * 5) {
                     system("cls");
-                    puts("Vous vous renforcez, +25 force +1 domination");
-                    printf("Vous vous faites attaquez -%d Pv \n \n", 50 + forceBoss);
+                    puts("You get stronger, +25 strength");
+                    printf("You got attacked, you lose %d HP \n \n", 50 + forceBoss);
                     pvJoueur -= 50 + forceBoss;
                     coin -= 50 + Domination * 5;
                     manaJoueur -= 50 + Domination * 5;
                     forceJoueur += 25;
                     Domination += 1;
-                    printf("Joueur --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
-                    printf("Mana --> %d / %d              pieces --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
+                    printf("Player --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
+                    printf("Mana --> %d / %d              Coin --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
                     turn++;
                 } else {
                     system("cls");
-                    puts("plus assez de pieces/mana \n");
-                    printf("Joueur --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
-                    printf("Mana --> %d / %d              pieces --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
+                    puts("You don't have enough coin/mana \n");
+                    printf("Player --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
+                    printf("Mana --> %d / %d              Coin --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
                 }
                 break;
             case 6:
@@ -176,19 +177,19 @@ int main () {
                     system("cls");
                     manaJoueur -= 1000;
                     coin -= 2500;
-                    puts("Vous sentez un grand pouvoir affluer en vous... \n Et vous le liberez...");
+                    puts("You release a huge amount of power!");
                     hush = pvBoss * 0.25;
-                    printf("Vous avez inflige %d PV! \n \n", hush);
+                    printf("Byakuren lose %d HP! \n \n", hush);
                     pvBoss -= hush;
                     hush = 0;
-                    printf("Joueur --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
-                    printf("Mana --> %d / %d              pieces --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
+                    printf("Player --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
+                    printf("Mana --> %d / %d              coin --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
                     turn++;
                 } else {
                     system("cls");
-                    puts("plus assez de pieces/mana \n");
-                    printf("Joueur --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
-                    printf("Mana --> %d / %d              pieces --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
+                    puts("You don't have enough coin/mana \n");
+                    printf("Player --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
+                    printf("Mana --> %d / %d              coin --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
                 }
                 break;
             case 7:
@@ -196,56 +197,57 @@ int main () {
                     system("cls");
                     manaJoueur -= 100 + 50 * idolatrizeCharge;
                     idolatrizeCharge++;
-                    printf("Vous accumulez des esprits divins... vous en avez %d \n \n", idolatrizeCharge);
-                    printf("Joueur --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
-                    printf("Mana --> %d / %d              pieces --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
+                    printf("+1 divine spirit, You have %d divine spirit \n \n", idolatrizeCharge);
+                    printf("Player --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
+                    printf("Mana --> %d / %d              Coin --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
                     turn++;
                 } else {
                     system("cls");
-                    puts("Vous n'avez pas assez de mana \n");
-                    printf("Joueur --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
-                    printf("Mana --> %d / %d              pieces --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
+                    puts("You don't have enough mana \n");
+                    printf("Player --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
+                    printf("Mana --> %d / %d              Coin --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
                 }
                 break;
             case 8:
                 if (idolatrizeCharge >= 1) {
                     system("cls");
-                    printf("Vous liberez les esprits divin que vous avez accumulez... %d PV! \n",
+                    printf("You release all your divine spirit... Byakuren lose %d HP! \n",
                            250 * idolatrizeCharge * forceJoueur * Domination);
-                    printf("Vous vous faites attaquez - %d PV! \n", 250 + forceBoss);
+                    printf("You got attacked, You lose %d HP! \n", 250 + forceBoss);
                     pvJoueur = 500;
                     pvBoss -= 250 * idolatrizeCharge * forceJoueur * Domination;
                     idolatrizeCharge = 0;
-                    printf("Joueur --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
-                    printf("Mana --> %d / %d              pieces --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
+                    printf("Player --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
+                    printf("Mana --> %d / %d              Coin --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
                     turn++;
                 } else {
                     system("cls");
-                    puts("vous avez aucun esprit divin");
-                    printf("Joueur --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
-                    printf("Mana --> %d / %d              pieces --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
-                    printf("Domination --> %d");
+                    puts("You don't have any divine spirit");
+                    printf("Player --> %d / %d      Byakuren --> %d  PV \n", pvJoueur, 1000 + pvMaxBonus, pvBoss);
+                    printf("Mana --> %d / %d              Coin --> %d   \n \n", manaJoueur, 100 + manaMaxBonus,coin);
+                    
                 }
                 break;
             case 9:
                 system("cls");
-                printf("Joueur --> %d / %d        Byakuren --> %d / %d \n", pvJoueur, 1000 + pvMaxBonus, pvBoss, pvBossMax);
-                printf("Mana ----> %d / %d           pieces --> %d \n", manaJoueur, 100 + manaMaxBonus, coin);
-                printf("Force ---> %d                Force Byakuren ---> %d \n \n", forceJoueur, forceBoss);
+                printf("Player --> %d / %d        Byakuren --> %d / %d \n", pvJoueur, 1000 + pvMaxBonus, pvBoss, pvBossMax);
+                printf("Mana ----> %d / %d           Coin --> %d \n", manaJoueur, 100 + manaMaxBonus, coin);
+                printf("Strength ---> %d                Byakuren strength ---> %d \n", forceJoueur, forceBoss);
+                printf("Domination --> %d\n", Domination);
                 printf("----------------\n-----Armure-----\n----------------\n");
-                printf("-----> CASQUE \n-> \n");
-                printf("-----> TORSE \n-> \n");
-                printf("-----> JAMBIERE \n-> \n");
-                printf("-----> BOTTES \n-> \n");
+                printf("-----> HELMET \n-> \n");
+                printf("-----> CHESTPLATE \n-> \n");
+                printf("-----> LEGGINGS \n-> \n");
+                printf("-----> BOOTS \n-> \n");
                 break;
 
-            case 10:
+            case 10000:
                 system("cls");
                 printf("--------------------------\n---------THE SHOP---------\n--------------------------\n");
                 printf("Voulez-vous acheter cet objet?\n---> \n");
                 break;
 
-            case 11:
+            case 11000:
                 system("cls");
                 break;
 
@@ -258,28 +260,34 @@ int main () {
                 manaJoueur = 24;
                 break;
 
-            case 12:
-                system("cls");
-                printf(" quelle rune voulez-vous utilisez?\n");
-                printf("1: La rune de Sowilo --> %d       2: La rune de Algiz --> %d\n", sowilo, algiz);
-                printf("3: La rune de Jera   --> %d       4: La rune de Berkana --> %d\n \n", jera, berkana);
-                actionJoueurRune = 0;
-                scanf("%d", &actionJoueurRune);
-                if (sowilo >= 1 && actionJoueurRune == 1)
-                {
-                    printf("Vou utilisez la rune de Sowilo...\nElle inflige %d degat", forceJoueur * Domination * 25);
+            case 12000:
+                do {
+                    system("cls");
+                    printf("quelle rune voulez-vous utilisez?\n");
+                    printf("1: La rune de Sowilo --> %d       2: La rune de Algiz --> %d\n", sowilo, algiz);
+                    printf("3: La rune de Jera   --> %d       4: La rune de Berkana --> %d\n \n", jera, berkana);
+                    actionJoueurRune = 1;
+                    scanf("%d", &actionJoueurRune);
+                } while (actionJoueurRune < 1 || actionJoueurRune > 4);
+                if (sowilo >= 1 && actionJoueurRune == 1){
+                    printf("Vous utilisez la rune de Sowilo...\nElle inflige %d degat\n", forceJoueur * Domination * 25);
+                    actionJoueurRune = 0;
                 }
-
+                else {
+                    printf("Vous n'avez pas de rune de Sowilo\n");
+                    actionJoueurRune = 0;
+                }
 
             default:
                 system("cls");
                 printf("\nvaleur invalide... \n");
 
         }
-        if (runeTurn == 10 || runeTurn == 20 || runeTurn == 30) {
+        if (runeTurnSowilo == 2 ){
             system("cls");
             printf("Vous obtenez une rune de Sowilo\n");
             sowilo += 1;
+            runeTurnSowilo = 0;
         }
 
         if (turn >= 50) {
